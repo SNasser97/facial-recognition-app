@@ -8,3 +8,4 @@
  You simply grab an image URL and paste it into the field and hit detect!
  Depending on the image you provide it can detect the face or faces and display a box highlighting the face
 
+![](face-detect-guide.gif)
