@@ -1,0 +1,48 @@
+.user {
+	display:flex;
+	justify-content: center;
+	&__name {
+		// font-style: italic;
+		// letter-spacing:2;
+
+	}
+	&__details {
+		@media only screen and (max-width:$bp-small) {
+		   	padding: 2rem;
+		   	font-size: 3.5rem;
+		   	text-align: center;
+		}
+
+	}
+	&__rankPosition {
+		display:inline-flex;
+		justify-content:center;
+		align-items:center;
+
+		border-radius: 5px;
+		color:white;
+		height: 6.5rem;
+		padding: 3.5rem;
+		border:2px solid currentColor;
+		
+		text-align: center;
+		margin-left: 1rem;
+		min-width:6.5rem;
+		font-size: 4rem;
+		backface-visibility:hidden;
+		transform:scale(.9);
+		transition:all .2s ease;
+		// animation: 1s pulse infinite;
+
+		@media only screen and (max-width:$bp-small) {
+			display: flex;
+			justify-content:center;
+			align-items:center;
+			margin:0 auto;
+		}
+		&:hover {
+			transform:scale(1);
+		}
+	}
+}
+

@@ -1,0 +1,65 @@
+
+.imageForm {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+	align-items:center;
+
+	// height:50vh;
+	height:100%;
+	&__desc {
+		@media only screen and (max-width:$bp-small) {
+		   	padding: 2rem;
+		   	font-size: 2rem;
+		   	text-align: center;
+		   	margin-top: 0;
+		   	margin-bottom: 0;
+		   	padding-top: 0;
+		}
+	}
+	&__inputContainer {
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		// flex-direction:column;
+		// align-items:center;
+		width: 40%;
+		height:8rem;
+		box-shadow:0 1px 8px rgba(#000,.25);
+		// @include background;
+		background-color:#556;
+        background-image: linear-gradient(30deg, $col-tertiary 12%, $col-tertiary 12.5%, transparent 87%, $col-tertiary 87.5%, $col-tertiary),
+        linear-gradient(150deg, $col-tertiary 12%, transparent 12.5%, $col-tertiary 87%, #445 87.5%, #445),
+        linear-gradient(30deg, $col-tertiary 12%, transparent 12.5%, $col-tertiary 87%, #445 87.5%, #445),
+        linear-gradient(150deg, $col-tertiary 12%, transparent 12.5%, $col-tertiary 87%, #445 87.5%, #445),
+        linear-gradient(60deg, $col-tertiary 25%, transparent 25.5%, $col-tertiary 75%, #99a 75%, #99a),
+        linear-gradient(60deg, $col-tertiary 25%, transparent 25.5%, $col-tertiary 75%, #99a 75%, #99a);
+        background-size:80px 140px;
+        background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+
+
+        @media only screen and (max-width:$bp-small) {
+			width: 80%;
+		}
+	}
+
+	&__inputText {
+		width: 60%;
+		padding:.5rem;
+		text-align:center;
+		height: 4rem;
+
+		+ .btn.btn__full {
+			width: 30%;
+			// margin:2rem 0;
+			margin: 0;
+			border-radius:0;
+		}
+
+		+ .btn.btn__full:active {
+			transform:scale(1.05);
+		}
+	}
+	// &__inputText
+}

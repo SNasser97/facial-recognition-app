@@ -1,0 +1,20 @@
+@import "./abstracts/variables";
+@import "./abstracts/typography";
+@import "./abstracts/mixins";
+@import "./abstracts/animations";
+
+
+@import "./base/base";
+
+// @import "./components/app";
+@import "./components/logo";
+@import "./components/button";
+@import "./components/imageLinkForm";
+@import "./components/rank";
+@import "./components/particles";
+@import "./components/faceRecognition";
+
+@import "./layouts/footer";
+@import "./pages/home";
+@import "./components/nav";
+

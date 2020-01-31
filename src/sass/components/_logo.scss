@@ -1,0 +1,34 @@
+.logo {
+	margin: auto 8rem;
+	display:flex;
+	justify-content:flex-start;
+	// height:8rem;
+	height:auto;
+	min-height:22rem;
+	margin-top: 6rem;
+	@media only screen and (max-width:$bp-small) {
+		   	justify-content: center;
+			min-height: 15rem;
+			margin-top: 4rem;
+	}
+
+	&__img {
+		height:14rem;
+		width:14rem;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		font-size: 8rem;
+		border-radius:.5rem;
+		box-shadow:0 1px 8px rgba(#000,.25);
+		@include background;
+		
+		img {
+			
+			border-radius:100%;
+		   height:auto;
+		   max-width: 100%;
+		   
+		}
+	}
+}

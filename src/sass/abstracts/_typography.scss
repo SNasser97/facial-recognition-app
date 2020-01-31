@@ -1,0 +1,26 @@
+@font-face { /* personal usage only */
+  font-family: "KayakSans";
+  src: url("../../assets/fonts/KayakSansRegular.eot"); /* IE9 Compat Modes */
+  src: url("../../assets/fonts/KayakSansRegular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../../assets/fonts/KayakSansRegular.otf") format("opentype"), /* Open Type Font */
+    url("../../assets/fonts/KayakSansRegular.woff") format("woff"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+.fs {
+	font-size: 1.6rem; // default
+	&--1 {
+		font-size: 4.5rem;
+	}
+	&--2 {
+		font-size: 3rem;
+	}
+
+	&--3 {
+		font-size:2rem;
+	}
+	&--4 {
+		font-size: 1.8rem;
+	}
+}

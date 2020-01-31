@@ -1,0 +1,25 @@
+.btn {
+	height:4rem;
+	width:15rem;
+	border-radius:5rem;
+	border:none;
+	transition: all .2s;
+	margin-left: 1.5rem;
+	&__full {
+		background:$col-primary;
+		color:white;
+		border:1px solid $col-primary;
+		&:hover {
+			background:$col-secondary;
+			border:1px solid $col-secondary;
+		}
+	}
+	&__ghost {
+		background: transparent;
+		border: 1px solid $col-primary;
+		color:$col-primary;
+		&:hover {
+			background:$col-primary;
+		}
+	}
+}

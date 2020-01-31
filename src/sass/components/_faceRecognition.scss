@@ -1,0 +1,41 @@
+.recognition {
+	display:flex;
+	justify-content: center;
+	align-items:center;
+	// border:1px solid $col-primary;
+	// max-width:50%;
+	margin: 0 auto;
+	width: 50%;
+	height:auto;
+	margin-top: 4rem;
+	position: relative;
+
+	@media only screen and (max-width:$bp-large) {
+		   width:80%;
+	}
+	&__box {
+		position: absolute;
+		border: 2px solid rgba($col-primary,.55);
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		cursor: pointer;
+		transition: .3s all ease-in;
+		margin: 0 auto;
+		z-index: 3;
+		
+		animation: 2.5s pulse infinite;
+		
+		
+		&:hover {
+			transform:scale(1.1);
+		}
+	}
+
+	&__img {
+		width: 100%;
+		height:auto;
+		display:none;
+		text-align: center;
+	}
+}

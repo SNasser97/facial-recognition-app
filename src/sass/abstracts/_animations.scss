@@ -1,0 +1,12 @@
+// pulse
+@keyframes pulse {
+	0% {
+		background: transparent;
+	}
+	50%{
+		background: rgba($col-tertiary,.5);
+	}
+	100% {
+		background: transparent;
+	}
+}
