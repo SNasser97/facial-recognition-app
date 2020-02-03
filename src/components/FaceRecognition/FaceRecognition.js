@@ -6,7 +6,7 @@ const FaceRecognition = ({ imageURL, box }) => {
   	const faces = ()=> {
   		// if box contains values
 	    if(box){
-	    	 const newArr =  box.map((face, id) => {
+	    	 const boxes =  box.map((face, id) => {
 	       		 return <div className="recognition__box"  
 	       		 				key={ id }
 	        					style={
@@ -19,9 +19,9 @@ const FaceRecognition = ({ imageURL, box }) => {
 							}>
 	     			    </div>
 	    		 })
-      		return newArr;
+      		return boxes;
       	}
-      	// nothing
+      	// else nothing
     	return null
     }
     return (

@@ -9,6 +9,10 @@
 # api keys
 .env
 
+
+# notes
+dev-notes.txt
+
 # oldfiles
 .jsold
 
