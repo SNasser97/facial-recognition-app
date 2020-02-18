@@ -3,8 +3,8 @@ export const particlesOption = {
     "number": {
       "value": 35,
       "density": {
-        "enable": true,
-        "value_area": 1100
+        "enable": false,
+        "value_area": 3000
       }
     },
     "color": {
@@ -39,8 +39,8 @@ export const particlesOption = {
       "value": 31.56640387635437,
       "random": true, 
       "anim": {
-        "enable": false,
-        "speed": 40,
+        "enable": true,
+        "speed": 10,
         "size_min": 0.1,
         "sync": false
       }

@@ -87,7 +87,7 @@ class Register extends Component  {
 						<input 
 							onClick={ onSubmitRegister } 
 							type="submit" 
-							className="login__submit btn btn__ghost fs--4" 
+							className="login__submit btn btn__full fs--4" 
 							value="Register"
 						/>
 					</div>

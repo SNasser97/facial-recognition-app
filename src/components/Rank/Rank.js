@@ -10,12 +10,15 @@ const Rank = ({name, entries}) => {
 				{", your current rank is"}
 				<span className="user__rankPosition fs--1">{"#8"}</span>
 			</h2>
-				<p className="user__currentEntries fs--3">You're current entries are 
+				<p className="user__currentEntries fs--3">
+					Your current number of entries are
 					<span className="user__rankPosition fs--4"> { entries }</span>
-				</p>
+
+				</p>	
 			</div>
 		</div>
 	);
 }
 
 export default Rank;
+

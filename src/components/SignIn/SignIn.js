@@ -66,7 +66,7 @@ class SignIn extends Component {
 							<input onChange={ onPasswordChange } type="password" className="login__input fs--4" name="password" placeholder="Password" required/>
 							<label htmlFor="password" className="login__label">Password</label>
 							<hr className="login__inputExpand"/>
-						</div>	
+						</div>
 					</fieldset>
 					{ /* FORM OPTIONS */ }
 					<div className="login__box login__box--button">
@@ -74,7 +74,7 @@ class SignIn extends Component {
 						<input 
 							onClick={ onSubmitSignIn } 
 							type="submit" 
-							className="login__submit btn btn__ghost fs--4" 
+							className="login__submit btn btn__full fs--4" 
 							value="Sign In"
 						/>
 					</div>

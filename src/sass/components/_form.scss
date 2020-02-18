@@ -12,6 +12,7 @@
 		min-width: 25vw;
 		max-width:100vw;
 		// width: 80%;
+		height:50rem;
 		// border:.2rem solid $col-primary;
 		box-shadow: 2px 2px  2px 2px $col-primary;
 		border-radius:.5rem;
@@ -50,6 +51,7 @@
 		margin-top: 3rem;
 		margin-bottom: 0;
 		}
+
 		&--button {
 
 		}
@@ -144,7 +146,7 @@
 
 	&__options {
 		margin: 0rem 0;
-		margin-bottom: 1.5rem;
+		// margin-bottom: 1.5rem;
 	}
 	&__submit {
 		font-family: inherit;
