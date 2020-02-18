@@ -18,7 +18,7 @@
 		display:inline-flex;
 		justify-content:center;
 		align-items:center;
-
+		background: rgba($col-primary,0.15);
 		border-radius: 5px;
 		color:white;
 		height: 6.5rem;
@@ -43,6 +43,21 @@
 		&:hover {
 			transform:scale(1);
 		}
+	}
+	&__currentEntries {
+		text-align:center;
+		&--number {
+			color:white;
+		}
+	}
+	&__currentEntries &__rankPosition {
+		height: 3rem;
+		font-size: 2.5rem;
+		display:flex;
+		width: 50%;
+		margin: 0 auto;
+		padding: 2rem;
+		text-align:center;
 	}
 }
 
