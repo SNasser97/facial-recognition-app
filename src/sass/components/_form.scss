@@ -16,8 +16,11 @@
 		box-shadow: 2px 2px  2px 2px $col-primary;
 		border-radius:.5rem;
 		// background: rgba($col-tertiary, .25);
-		@media only screen and (max-width: $bp-small) {
+		@media only screen and (max-width: $bp-medium) {
 			width:80vw;
+		}
+		@media only screen and (min-width: $bp-medium) and (max-width:$bp-large) {
+			width: 50vw;
 		}
 		@media only screen and (min-width: $bp-large) {
 			width: 25vw;
@@ -68,6 +71,19 @@
 		// top:.1rem;
 		// backface-visibility:hidden;
 		z-index: -1;
+		&--error {
+			display:none;
+			opacity:1;
+			justify-content:center;
+			color:#FF005A;
+			letter-spacing:.12rem;
+			margin-bottom: 1rem;
+			@media only screen and (max-width: $bp-small) {
+				// width:80vw;
+				text-align:center;
+				letter-spacing:.05rem;
+			}
+		}
 	}
 
 	&__input{
@@ -137,7 +153,9 @@
 		&:hover {
 			color:white;
 		}
-		margin: 0;
+		// display:block;
+		display:flex;
+		margin: 0 auto;
 	}
 	&__link {
 		color:$col-primary;

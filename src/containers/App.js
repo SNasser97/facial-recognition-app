@@ -22,10 +22,28 @@ class App extends Component {
       imageURL: "",
       box: [],
       route: "signin", // show signin page
-      isSignedin: false
-    }
+      isSignedin: false,
+      user: {
+          id:"",
+          name:"",
+          email:"",
+          entries:0,
+          joined: ""
+        }
+      }
   }
-
+  loadUser = (data) => { // pass db details and set state
+      this.setState(
+        {user: 
+          {
+            id:data.id,
+            name:data.name,
+            email:data.email,
+            entries:data.entries,
+            joined:data.joined
+          }
+      })
+  }
   // calculate box position of face/faces
   calculateFaceLocation = (data) => {
     const faceBoxMulti = data.outputs[0].data.regions.map(region => {
@@ -89,21 +107,24 @@ class App extends Component {
   }
    
   render() {
-     const { imageURL, box, route, isSignedin } = this.state; // state of our app
-     const { onInputChange, onButtonSubmit, onRouteChange } = this; // functions declared in App
-
+     const { imageURL, box, route, isSignedin, user} = this.state; // state of our app
+     const { loadUser, onInputChange, onButtonSubmit, onRouteChange } = this; // functions declared in App
      // components, where facerecog has prop box
      // Line 91 - IF route state = signin show form else show components
      return (
         <div className="App">
           <Particles className="particles" params={ particlesOption }/>
-          <Navigation isSignedIn={ isSignedin }onRouteChange= { onRouteChange }/>
+          <Navigation isSignedIn={ isSignedin } onRouteChange= { onRouteChange }/>
 
           { route === "home" ? 
 
             <React.Fragment>
               <Logo />
-              <Rank />
+              <Rank 
+                loadUser= { loadUser } 
+                name={ user.name } 
+                entries={ user.entries }
+              />
               <ImageLinkForm 
                 onInputChange= { onInputChange } 
                 onButtonSubmit={ onButtonSubmit } 
@@ -113,11 +134,11 @@ class App extends Component {
           : (route === "signin" ?
             <React.Fragment>
               <Logo />
-              <SignIn onRouteChange={ onRouteChange }/>
+              <SignIn loadUser={ loadUser } onRouteChange={ onRouteChange }/>
             </React.Fragment>
           : <React.Fragment>
               <Logo />
-              <Register onRouteChange={ onRouteChange }/>
+              <Register loadUser={ loadUser } onRouteChange={ onRouteChange }/>
             </React.Fragment>
           )
         }
