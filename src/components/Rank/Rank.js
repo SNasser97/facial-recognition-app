@@ -6,9 +6,8 @@ const Rank = ({name, entries}) => {
 		<div className="user">
 			<div className="user__entries">
 			<h2 className="user__details fs--2">
-				<span className="user__name">{ name }</span>
-				{", your current rank is"}
-				<span className="user__rankPosition fs--1">{"#8"}</span>
+				Hey there,
+				<span className="user__name">{ name === "" ? " John" : null }</span>
 			</h2>
 				<p className="user__currentEntries fs--3">
 					Your current number of entries are
@@ -22,3 +21,5 @@ const Rank = ({name, entries}) => {
 
 export default Rank;
 
+// {", your current rank is"}
+// 				<span className="user__rankPosition fs--1">{"#8"}</span>
