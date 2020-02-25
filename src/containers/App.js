@@ -14,6 +14,21 @@ import { particlesOption } from "../assets/vendors/particlesOptions";
 import { FACE_DETECT_MODEL } from 'clarifai';
 import { app } from "../assets/vendors/clarifai_api";
 
+const initialState = { // set initial state for the user when signing out
+      input: "",
+      imageURL: "",
+      box: [],
+      route: "signin", // show signin page
+      isSignedin: false,
+      user: {
+          id:"",
+          name:"",
+          email:"",
+          entries:0,
+          joined: ""
+      }
+}
+
 class App extends Component {
   constructor() {
     super();
@@ -64,9 +79,9 @@ class App extends Component {
   onRouteChange = (route) => {
       // check if user logged in as well as change route based on user
       if(route === "signout") {
-        this.setState({isSignedin: false}) 
+        this.setState(initialState);
       } else if(route === "home") {
-        this.setState({isSignedin: true})
+        this.setState({isSignedin: true});
       }
       this.setState({route: route});
   }
@@ -112,7 +127,7 @@ class App extends Component {
                   .then(resp=> resp.json())
                   .then(count => {
                     this.setState(Object.assign(user, {entries:count}))
-                  })
+                  }).catch(err => console.log(err));
               }
                 this.displayFaceBox(this.calculateFaceLocation(response), this.displayImage()) 
               }// api response
@@ -147,7 +162,7 @@ class App extends Component {
               />
               <FaceRecognition box={ box } imageURL={ imageURL }/>
             </React.Fragment> 
-          : (route === "signin" ?
+          : (route === "signin" || route === "signout" ?
             <React.Fragment>
               <Logo />
               <SignIn loadUser={ loadUser } onRouteChange={ onRouteChange }/>
