@@ -16,9 +16,19 @@ class SignIn extends Component {
 		// console.log(event.target.value);
 		this.setState({signInPassword: event.target.value});
 	}
+	onSignInValidate = (id, user) => {
+		const { onRouteChange, loadUser } = this.props;
+		const error = document.querySelector(".login__label--error");
+		if(id) {
+			loadUser(user);
+			onRouteChange("home");
+		} else {
+			error.style.display="flex";
+		}
+	}
 	onSubmitSignIn =  (e) => {
 		const { signInEmail, signInPassword } =  this.state;
-		const { onRouteChange, loadUser } =  this.props;
+		const { onSignInValidate } =  this;
 
 		const server_url =  "http://localhost:3001/signin";
 			fetch(server_url, 
@@ -32,16 +42,9 @@ class SignIn extends Component {
 				})
 				.then(resp => resp.json())
 				.then((user) => {
-					// display error label if data incorrect/missing
-					const error = document.querySelector(".login__label--error");
-					if(user.id) {
-						loadUser(user);
-						onRouteChange("home");
-					} else {
-						error.style.display="flex";
-					}
-					// user.id ? onRouteChange("home") : error.style.display="flex";
+					onSignInValidate(user.id, user); // display error label if data incorrect/missing
 				})
+				.catch(err=>console.log("Failed to sign in, check server status =>", err));
 		e.preventDefault();
 	}
 
@@ -89,8 +92,5 @@ class SignIn extends Component {
 		)
 	}
 }
-// const SignIn = ({ onRouteChange }) => {
-	
-// }
 
 export default SignIn;

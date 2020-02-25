@@ -20,9 +20,24 @@ class Register extends Component  {
 	onPasswordChange = (event) => {
 		this.setState({registerPassword: event.target.value});
 	}
+	onRegisterValidate = (user) => {
+		const error = document.querySelector(".login__label--error");
+		const { onRouteChange, loadUser } = this.props;
+		// display error on blank or email exists
+		if(user !== "Error, registration failed" && user !== "insert into \"login\" (\"email\", \"hash\") values ($1, $2) returning \"email\" - duplicate key value violates unique constraint \"login_email_key\"") {
+			loadUser(user);
+			onRouteChange("home");
+		} else if (user === "insert into \"login\" (\"email\", \"hash\") values ($1, $2) returning \"email\" - duplicate key value violates unique constraint \"login_email_key\"") {
+			error.textContent="Email already exists";
+			error.style.display="flex";
+		} else {
+			error.textContent="Please fill in your details";
+			error.style.display="flex";
+		}
+	}
 	onSubmitRegister = (e) => {
 		const { registerName, registerEmail,  registerPassword} =  this.state;
-		const { onRouteChange, loadUser } =  this.props;
+		const { onRegisterValidate } =  this;
 
 		const server_url =  "http://localhost:3001/register";
 			fetch(server_url, 
@@ -38,14 +53,8 @@ class Register extends Component  {
 				.then(resp => resp.json())
 				.then((user) => {
 					// display error label if missing
-					const error = document.querySelector(".login__label--error");
-					if(user !== "Error, registration failed") {
-						loadUser(user);
-						onRouteChange("home");
-					} else {
-						error.style.display="flex";
-					}
-				})
+					onRegisterValidate(user);
+				}).catch(err=>console.log("Error =>", err));
 		e.preventDefault();
 	}
 
@@ -83,7 +92,7 @@ class Register extends Component  {
 					</fieldset>
 					{ /* FORM OPTIONS */ }
 					<div className="login__box login__box--button">
-						<label className="login__label--error fs--4">Please fill the form in with your details</label>
+						<label className="login__label--error fs--4"></label>
 						<input 
 							onClick={ onSubmitRegister } 
 							type="submit" 
