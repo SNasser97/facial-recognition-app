@@ -8,7 +8,7 @@ const ImageLinkForm = ({ onInputChange , onImageSubmit }) => {
 				{ "This will detect faces in your picture!" }
 			</p>
 			<div className="imageForm__inputContainer">
-				<input  onChange={ onInputChange } className="imageForm__inputText fs fs--4" type="text" placeholder="URL Here"/>
+				<input  onChange={ onInputChange } className="imageForm__inputText fs fs--4" type="text" placeholder="paste your URL Here"/>
 				<button onClick={ onImageSubmit } className="btn btn__full fs fs--4">Detect</button>
 			</div>
 		</div>

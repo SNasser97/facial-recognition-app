@@ -8,6 +8,7 @@
 
 	// height:50vh;
 	height:100%;
+	
 	&__desc {
 		@media only screen and (max-width:$bp-small) {
 		   	padding: 2rem;
@@ -40,12 +41,20 @@
 
 
         @media only screen and (max-width:$bp-small) {
-			width: 80%;
+			width: 90%;
+			flex-direction:column;
+			// margin:1rem;
+			height: 11rem;
+			max-height: 100%;
 		}
 	}
 
 	&__inputText {
 		width: 60%;
+		 @media only screen and (max-width:$bp-small) {
+			width: 90%;
+			margin-bottom: 1rem;
+		}
 		padding:.5rem;
 		text-align:center;
 		height: 4rem;

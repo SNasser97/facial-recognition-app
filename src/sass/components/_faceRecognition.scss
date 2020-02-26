@@ -10,8 +10,14 @@
 	margin-top: 4rem;
 	position: relative;
 
-	@media only screen and (max-width:$bp-large) {
-		   width:80%;
+	@media only screen and (max-width:$bp-small) {
+		   width:90vw;
+	}
+	@media only screen and (min-width:$bp-medium) {
+		   width:40vw;
+	}
+	@media only screen and (min-width:$bp-large) {
+		   width:20vw;
 	}
 	&__box {
 		position: absolute;
