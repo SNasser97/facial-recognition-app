@@ -7,12 +7,10 @@ import Rank from "../components/Rank/Rank";
 import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
 import SignIn from "../components/SignIn/SignIn";
 import Register from "../components/Register/Register";
-
+import Valid from "../components/Valid/Valid";
 // Vendors
 import Particles from 'react-particles-js';
 import { particlesOption } from "../assets/vendors/particlesOptions";
-import { FACE_DETECT_MODEL } from 'clarifai';
-import { app } from "../assets/vendors/clarifai_api";
 
 const initialState = { // set initial state for the user when signing out
       input: "",
@@ -26,7 +24,8 @@ const initialState = { // set initial state for the user when signing out
           email:"",
           entries:0,
           joined: ""
-      }
+      },
+      isValidURL:""
 }
 
 class App extends Component {
@@ -44,8 +43,10 @@ class App extends Component {
           email:"",
           entries:0,
           joined: ""
-        }
+        },
+      isValidURL:""
       }
+      
   }
   loadUser = (data) => { // pass db details and set state
       this.setState(
@@ -60,7 +61,7 @@ class App extends Component {
       })
   }
   // calculate box position of face/faces
-  calculateFaceLocation = (data) => {
+  calculateFaceLocation = ({data}) => {
     const faceBoxMulti = data.outputs[0].data.regions.map(region => {
       return {
         left:region.region_info.bounding_box.left_col * 100,
@@ -99,46 +100,48 @@ class App extends Component {
   }
 
   validateInput = (url) => {
-      return (!url) ? alert("Provide a url with image extension .jpeg/.svg/.png") : url;
+    const imageurl = url.toLowerCase();
+    const regJPG = new RegExp(/jpe?g/).test(imageurl);
+    const regPNG = new RegExp(/png/).test(imageurl);
+    const regSVG = new RegExp(/svg/).test(imageurl);
+    // basic reg check to see if url contains img type, though a more precise RegExp can be used
+    return ((url !== "" || url !== undefined ) && (regJPG || regPNG || regSVG)) ? `${url} ${this.setState({isValidURL:true})}` : this.setState({isValidURL:false});
   }
   
   // event listener onclick call api and set state
   onImageSubmit = () => {
       // this.setState({mystate: this.state.ourValue}, ourCallback e.g. () => {...})
       const { input } = this.state;
-      const server_url =  "http://localhost:3001/image";
-      if(this.validateInput(input)) {
-        this.setState(
-          {imageURL: input}, 
-          () => {
-            const { imageURL, user } = this.state;
-            app.models.predict(FACE_DETECT_MODEL, imageURL)
-            .then((response) => {
-              if(response) { // update entries each time by 1`
-                fetch(server_url, 
-                  { 
-                    method:"put",
-                    headers:{"Content-Type": "application/json"},
-                    body:  JSON.stringify({
-                        id: user.id,
-                        
-                    })
-                  })
-                  .then(resp=> resp.json())
-                  .then(count => {
-                    this.setState(Object.assign(user, {entries:count}))
-                  }).catch(err => console.log(err));
-              }
-                this.displayFaceBox(this.calculateFaceLocation(response), this.displayImage()) 
-              }// api response
-            ).catch(err => console.log("Error =>", err)) // output error
-          }
-        )
-      }
+      const { validateInput } = this;
+      
+      if(validateInput(input)) {
+        this.setState({imageURL:input}, () => {
+           const { imageURL, user } = this.state;
+           fetch("http://localhost:3001/image_url", {
+            method:"post",
+            headers:{"Content-Type": "application/json"},
+            body:JSON.stringify({input:imageURL})
+           }) 
+          .then(resp => resp.json())
+          .then(resp => {
+            if(resp) {
+              fetch("http://localhost:3001/image",{
+                method:"put",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({id:user.id})
+              })
+              .then(resp=>resp.json())
+              .then(count=>this.setState(Object.assign(user, {entries:count})))
+              .catch(err=>console.log(err));
+            }
+            this.displayFaceBox(this.calculateFaceLocation(resp), this.displayImage());
+          })
+          .catch(err => console.log(err));
+        })
+    }
   }
-   
   render() {
-     const { imageURL, box, route, isSignedin, user} = this.state; // state of our app
+     const { imageURL, box, route, isSignedin, user, isValidURL} = this.state; // state of our app
      const { loadUser, onInputChange, onImageSubmit, onRouteChange } = this; // functions declared in App
      // components, where facerecog has prop box
      // Line 91 - IF route state = signin show form else show components
@@ -146,7 +149,7 @@ class App extends Component {
         <div className="App">
           <Particles className="particles" params={ particlesOption }/>
           <Navigation isSignedIn={ isSignedin } onRouteChange= { onRouteChange }/>
-
+          
           { route === "home" ? 
 
             <React.Fragment>
@@ -160,6 +163,8 @@ class App extends Component {
                 onInputChange= { onInputChange } 
                 onImageSubmit={ onImageSubmit } 
               />
+              { (isValidURL === "") ? null : <Valid isValidURL={ isValidURL } /> }
+              { /*!isValidURL ? <Valid /> : null*/ }
               <FaceRecognition box={ box } imageURL={ imageURL }/>
             </React.Fragment> 
           : (route === "signin" || route === "signout" ?
