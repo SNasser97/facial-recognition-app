@@ -1,8 +1,9 @@
 .nav {
 	display:flex;
 	justify-content:flex-end;
-	background: $col-dark-1;
-	color:$col-tertiary;
+	// background: $col-dark-1;
+	background: rgba(0,0,0,.05);
+	color:$col-primary;
 	&__item {
 			margin-right:1.5rem;
 			display:flex;
