@@ -34,25 +34,24 @@ class SignIn extends Component {
 		const { signInEmail, signInPassword } =  this.state;
 		const { onSignInValidate } =  this;
 
-		// const SERVER_URL_SIGNIN =  "https://secure-basin-43050.herokuapp.com/signin";
-			fetch(SERVER.SIGNIN, 
-				{	
-					method:"post",
-					mode: "cors",
-					headers:{
-						"Content-Type": "application/json",
-						    'Access-Control-Allow-Origin': '*'
-					},
-					body:  JSON.stringify({
-						email: signInEmail,
-						password: signInPassword
-					})
+		fetch(SERVER.SIGNIN, 
+			{	
+				method:"post",
+				mode: "cors",
+				headers:{
+					"Content-Type": "application/json",
+					    'Access-Control-Allow-Origin': '*'
+				},
+				body:  JSON.stringify({
+					email: signInEmail,
+					password: signInPassword
 				})
-				.then(resp => resp.json())
-				.then((user) => {
-					onSignInValidate(user.id, user); // display error label if data incorrect/missing
-				})
-				.catch(err=>console.log("Failed to sign in, check server status =>", err));
+			})
+			.then(resp => resp.json())
+			.then((user) => {
+				onSignInValidate(user.id, user); // display error label if data incorrect/missing
+			})
+			.catch(err=>console.log("Failed to sign in, check server status =>", err));
 		e.preventDefault();
 	}
 

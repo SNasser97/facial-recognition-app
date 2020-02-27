@@ -116,6 +116,8 @@ class App extends Component {
       const { input } = this.state;
       const { validateInput } = this;
       
+
+
       if(validateInput(input)) {
         this.setState({imageURL:input}, () => {
            const { imageURL, user } = this.state;
@@ -145,7 +147,7 @@ class App extends Component {
             this.displayFaceBox(this.calculateFaceLocation(resp), this.displayImage());
           })
           .catch(err => console.log(err));
-        })
+        });
     }
   }
   render() {
