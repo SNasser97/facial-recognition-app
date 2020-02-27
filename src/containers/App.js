@@ -11,6 +11,8 @@ import Valid from "../components/Valid/Valid";
 // Vendors
 import Particles from 'react-particles-js';
 import { particlesOption } from "../assets/vendors/particlesOptions";
+import { SERVER }  from "../assets/vendors/heroku"; // fetch
+
 
 const initialState = { // set initial state for the user when signing out
       input: "",
@@ -113,11 +115,11 @@ class App extends Component {
       // this.setState({mystate: this.state.ourValue}, ourCallback e.g. () => {...})
       const { input } = this.state;
       const { validateInput } = this;
-
+      
       if(validateInput(input)) {
         this.setState({imageURL:input}, () => {
            const { imageURL, user } = this.state;
-           fetch("https://secure-basin-43050.herokuapp.com/image_url", {
+           fetch(SERVER.IMAGE_URL, {
             method:"post",
             mode: "cors",
             headers:{
@@ -129,7 +131,7 @@ class App extends Component {
           .then(resp => resp.json())
           .then(resp => {
             if(resp) {
-              fetch("https://secure-basin-43050.herokuapp.com/image",{
+              fetch(SERVER.IMAGE,{
                 method:"put",
                 headers:{
                   "Content-Type":"application/json",

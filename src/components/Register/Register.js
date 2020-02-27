@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+// Vendors
+import { SERVER }  from "../../assets/vendors/heroku"; // fetch
 
 class Register extends Component  {
 
@@ -40,7 +41,7 @@ class Register extends Component  {
 		const { onRegisterValidate } =  this;
 
 		// const SERVER_URL_REGISTER =  "https://secure-basin-43050.herokuapp.com/register";
-			fetch("https://secure-basin-43050.herokuapp.com/register", 
+			fetch(SERVER.REGISTER, 
 				{	
 					method:"post",
 					mode: "cors",
