@@ -113,21 +113,29 @@ class App extends Component {
       // this.setState({mystate: this.state.ourValue}, ourCallback e.g. () => {...})
       const { input } = this.state;
       const { validateInput } = this;
-      
+      const SERVER_URL_IMG_URL = "https://secure-basin-43050.herokuapp.com/image_url";
+      const SERVER_URL_IMG = "https://secure-basin-43050.herokuapp.com/image";
+
       if(validateInput(input)) {
         this.setState({imageURL:input}, () => {
            const { imageURL, user } = this.state;
-           fetch("http://localhost:3001/image_url", {
+           fetch(SERVER_URL_IMG_URL, {
             method:"post",
-            headers:{"Content-Type": "application/json"},
+            headers:{
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin":"*"
+            },
             body:JSON.stringify({input:imageURL})
            }) 
           .then(resp => resp.json())
           .then(resp => {
             if(resp) {
-              fetch("http://localhost:3001/image",{
+              fetch(SERVER_URL_IMG,{
                 method:"put",
-                headers:{"Content-Type":"application/json"},
+                headers:{
+                  "Content-Type":"application/json",
+                  "Access-Control-Allow-Origin":"*"
+                },
                 body:JSON.stringify({id:user.id})
               })
               .then(resp=>resp.json())
