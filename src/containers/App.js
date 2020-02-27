@@ -123,11 +123,7 @@ class App extends Component {
            const { imageURL, user } = this.state;
            fetch(SERVER.IMAGE_URL, {
             method:"post",
-            mode: "cors",
-            headers:{
-              "Content-Type": "application/json",
-                  'Access-Control-Allow-Origin': '*'
-            },
+            headers:{"Content-Type": "application/json"},
             body:JSON.stringify({input:imageURL})
            }) 
           .then(resp => resp.json())
@@ -135,9 +131,7 @@ class App extends Component {
             if(resp) {
               fetch(SERVER.IMAGE,{
                 method:"put",
-                headers:{
-                  "Content-Type":"application/json",
-                },
+                headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({id:user.id})
               })
               .then(resp=>resp.json())

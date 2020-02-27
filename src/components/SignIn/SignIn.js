@@ -37,11 +37,7 @@ class SignIn extends Component {
 		fetch(SERVER.SIGNIN, 
 			{	
 				method:"post",
-				mode: "cors",
-				headers:{
-					"Content-Type": "application/json",
-					    'Access-Control-Allow-Origin': '*'
-				},
+				headers:{"Content-Type": "application/json"},
 				body:  JSON.stringify({
 					email: signInEmail,
 					password: signInPassword

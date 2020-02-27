@@ -43,11 +43,7 @@ class Register extends Component  {
 		fetch(SERVER.REGISTER, 
 			{	
 				method:"post",
-				mode: "cors",
-				headers:{
-					"Content-Type": "application/json", 
-					    'Access-Control-Allow-Origin': '*'
-				},
+				headers:{"Content-Type": "application/json"},
 				body:  JSON.stringify({
 					name: registerName,
 					email: registerEmail,
