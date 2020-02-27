@@ -39,13 +39,14 @@ class Register extends Component  {
 		const { registerName, registerEmail,  registerPassword} =  this.state;
 		const { onRegisterValidate } =  this;
 
-		const SERVER_URL_REGISTER =  "https://secure-basin-43050.herokuapp.com/register";
-			fetch(SERVER_URL_REGISTER, 
+		// const SERVER_URL_REGISTER =  "https://secure-basin-43050.herokuapp.com/register";
+			fetch("https://secure-basin-43050.herokuapp.com/register", 
 				{	
 					method:"post",
+					mode: "cors",
 					headers:{
 						"Content-Type": "application/json", 
-						"Access-Control-Allow-Origin":"*"
+						    'Access-Control-Allow-Origin': '*'
 					},
 					body:  JSON.stringify({
 						name: registerName,

@@ -113,28 +113,26 @@ class App extends Component {
       // this.setState({mystate: this.state.ourValue}, ourCallback e.g. () => {...})
       const { input } = this.state;
       const { validateInput } = this;
-      const SERVER_URL_IMG_URL = "https://secure-basin-43050.herokuapp.com/image_url";
-      const SERVER_URL_IMG = "https://secure-basin-43050.herokuapp.com/image";
 
       if(validateInput(input)) {
         this.setState({imageURL:input}, () => {
            const { imageURL, user } = this.state;
-           fetch(SERVER_URL_IMG_URL, {
+           fetch("https://secure-basin-43050.herokuapp.com/image_url", {
             method:"post",
+            mode: "cors",
             headers:{
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin":"*"
+                  'Access-Control-Allow-Origin': '*'
             },
             body:JSON.stringify({input:imageURL})
            }) 
           .then(resp => resp.json())
           .then(resp => {
             if(resp) {
-              fetch(SERVER_URL_IMG,{
+              fetch("https://secure-basin-43050.herokuapp.com/image",{
                 method:"put",
                 headers:{
                   "Content-Type":"application/json",
-                  "Access-Control-Allow-Origin":"*"
                 },
                 body:JSON.stringify({id:user.id})
               })

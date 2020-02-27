@@ -30,13 +30,14 @@ class SignIn extends Component {
 		const { signInEmail, signInPassword } =  this.state;
 		const { onSignInValidate } =  this;
 
-		const SERVER_URL_SIGNIN =  "https://secure-basin-43050.herokuapp.com/signin";
-			fetch(SERVER_URL_SIGNIN, 
+		// const SERVER_URL_SIGNIN =  "https://secure-basin-43050.herokuapp.com/signin";
+			fetch("https://secure-basin-43050.herokuapp.com/signin", 
 				{	
 					method:"post",
+					mode: "cors",
 					headers:{
 						"Content-Type": "application/json",
-					    "Access-Control-Allow-Origin":"*"
+						    'Access-Control-Allow-Origin': '*'
 					},
 					body:  JSON.stringify({
 						email: signInEmail,
