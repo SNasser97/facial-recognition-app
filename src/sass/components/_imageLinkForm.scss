@@ -51,7 +51,7 @@
 
 	&__inputText {
 		width: 60%;
-		 @media only screen and (max-width:$bp-small) {
+		@media only screen and (max-width:$bp-small) {
 			width: 90%;
 			margin-bottom: 1rem;
 		}
@@ -64,6 +64,9 @@
 			// margin:2rem 0;
 			margin: 0;
 			border-radius:0;
+			@media only screen and (max-width:$bp-small) {
+				width: 90%;
+			}
 		}
 
 		+ .btn.btn__full:active {
