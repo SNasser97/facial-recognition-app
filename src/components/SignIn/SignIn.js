@@ -11,7 +11,7 @@ class SignIn extends Component {
 			signInPassword:""
 		}
 	}
-
+	
 	onEmailChange = (event) => {
 		// console.log(event.target.value);
 		this.setState({signInEmail: event.target.value});
@@ -21,10 +21,11 @@ class SignIn extends Component {
 		this.setState({signInPassword: event.target.value});
 	}
 	onSignInValidate = (id, user) => {
-		const { onRouteChange, loadUser } = this.props;
+		const { onRouteChange, loadUser, userSession } = this.props;
 		const error = document.querySelector(".login__label--error");
 		if(id) {
 			loadUser(user);
+			userSession(user); // if sign in was valid set the user in localstorage
 			onRouteChange("home");
 		} else {
 			error.style.display="flex";
@@ -33,7 +34,6 @@ class SignIn extends Component {
 	onSubmitSignIn =  (e) => {
 		const { signInEmail, signInPassword } =  this.state;
 		const { onSignInValidate } =  this;
-
 		fetch(SERVER.SIGNIN, 
 			{	
 				method:"post",

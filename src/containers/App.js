@@ -13,7 +13,6 @@ import Particles from 'react-particles-js';
 import { particlesOption } from "../assets/vendors/particlesOptions";
 import { SERVER }  from "../assets/vendors/heroku"; // fetch
 
-
 const initialState = { // set initial state for the user when signing out
       input: "",
       imageURL: "",
@@ -50,6 +49,8 @@ class App extends Component {
       }
       
   }
+
+ 
   loadUser = (data) => { // pass db details and set state
       this.setState(
         {user: 
@@ -79,12 +80,40 @@ class App extends Component {
       this.setState({input:event.target.value});
   }
 
+  userSession = (data) => { // create session,prop for SignIn + Reg component
+    if(!localStorage.getItem("user")) {
+      localStorage.setItem("user",JSON.stringify(data));
+    }
+  }
+
+  setSession = (data) => { // set session for user (stop it clear on page refresh)
+     const {user} = this.state;
+     const sesh = (data) ? JSON.parse(data) : {};
+     user.id = sesh.id; // assign session id to user.id
+     this.setState({user: {
+        id:user.id,
+        name:sesh.name,
+        email:sesh.email,
+        entries:sesh.entries,
+        joined:sesh.joined,
+     }});
+     if(user.id) { // if id exists of session/user then set route to
+        this.setState({route:"home", isSignedin:true});
+     } else {
+        this.setState({isSignedin:false});
+     }
+  }
+
   onRouteChange = (route) => {
       // check if user logged in as well as change route based on user
       if(route === "signout") {
         this.setState(initialState);
+        localStorage.removeItem("user"); // clear user when signedout
       } else if(route === "home") {
         this.setState({isSignedin: true});
+      }
+      if(this.state.user.id) {
+        this.setState({route:"home"})
       }
       this.setState({route: route});
   }
@@ -116,8 +145,6 @@ class App extends Component {
       const { input } = this.state;
       const { validateInput } = this;
       
-
-
       if(validateInput(input)) {
         this.setState({imageURL:input}, () => {
            const { imageURL, user } = this.state;
@@ -135,7 +162,14 @@ class App extends Component {
                 body:JSON.stringify({id:user.id})
               })
               .then(resp=>resp.json())
-              .then(count=>this.setState(Object.assign(user, {entries:count})))
+              .then(count=>
+              {
+                this.setState(Object.assign(user, {entries:count}))
+                localStorage.setItem("user", // update the localStorage with latest entries
+                  JSON.stringify({
+                    ...user
+                  }));
+              })
               .catch(err=>console.log(err));
             }
             this.displayFaceBox(this.calculateFaceLocation(resp), this.displayImage());
@@ -144,18 +178,24 @@ class App extends Component {
         });
     }
   }
+
+  
+  componentDidMount() {
+      const { setSession } = this; 
+      setSession(localStorage.getItem("user"));
+  }
+
   render() {
      const { imageURL, box, route, isSignedin, user, isValidURL} = this.state; // state of our app
-     const { loadUser, onInputChange, onImageSubmit, onRouteChange } = this; // functions declared in App
-     // components, where facerecog has prop box
-     // Line 91 - IF route state = signin show form else show components
+     const { loadUser, onInputChange, onImageSubmit, onRouteChange, userSession } = this; // functions declared in App
+     
      return (
         <div className="App">
           <Particles className="particles" params={ particlesOption }/>
           <Navigation isSignedIn={ isSignedin } onRouteChange= { onRouteChange }/>
           
-          { route === "home" ? 
-
+          { route === "home" ?
+              
             <React.Fragment>
               <Logo />
               <Rank 
@@ -174,11 +214,11 @@ class App extends Component {
           : (route === "signin" || route === "signout" ?
             <React.Fragment>
               <Logo />
-              <SignIn loadUser={ loadUser } onRouteChange={ onRouteChange }/>
+              <SignIn userSession={ userSession } loadUser={ loadUser } onRouteChange={ onRouteChange }/>
             </React.Fragment>
           : <React.Fragment>
               <Logo />
-              <Register loadUser={ loadUser } onRouteChange={ onRouteChange }/>
+              <Register userSession={ userSession } loadUser={ loadUser } onRouteChange={ onRouteChange }/>
             </React.Fragment>
           )
         }

@@ -2,12 +2,13 @@ import React from "react";
 
 
 const Rank = ({name, entries}) => {
+	// if name of this user is empty then provide the stored user session name
 	return (
 		<div className="user">
 			<div className="user__entries">
 			<h2 className="user__details fs--2">
 				Hey there,
-				<span className="user__name">{ name }</span>
+				<span className="user__name"> { name }</span>
 			</h2>
 				<p className="user__currentEntries fs--3">
 					Your current number of entries are
