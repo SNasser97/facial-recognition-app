@@ -23,10 +23,11 @@ class Register extends Component  {
 	}
 	onRegisterValidate = (user) => {
 		const error = document.querySelector(".login__label--error");
-		const { onRouteChange, loadUser } = this.props;
+		const { onRouteChange, loadUser, userSession } = this.props;
 		// display error on blank or email exists
 		if(user !== "Error, registration failed" && user !== "insert into \"login\" (\"email\", \"hash\") values ($1, $2) returning \"email\" - duplicate key value violates unique constraint \"login_email_key\"") {
 			loadUser(user);
+			userSession(user);
 			onRouteChange("home");
 		} else if (user === "insert into \"login\" (\"email\", \"hash\") values ($1, $2) returning \"email\" - duplicate key value violates unique constraint \"login_email_key\"") {
 			error.textContent="Email already exists";
