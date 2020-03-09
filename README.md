@@ -7,7 +7,6 @@
   1. `clone the repo`
   2. `npm install`
   3. `npm start`
-OR [View and try it out - Deployed using heroku](https://face-recog-app-project.herokuapp.com)
 
 [Checkout the backend here](https://github.com/SNasser97/facial-recognition-app-api)
 
